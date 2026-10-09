@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero rounded-4 p-4 mb-4"><div class="eyebrow">Προσωπικός λογαριασμός</div><h1 class="h2 mt-2">Καλώς ήρθατε, {{ client.full_name }}</h1><p class="mb-0">Εδώ θα βλέπετε τις καταχωρημένες ενημερώσεις του φαρμακείου.</p></div>
+<div class="row g-4"><div class="col-lg-7"><div class="card p-3"><h2 class="h4">Οι συνταγές μου</h2><div class="table-responsive"><table class="table"><thead><tr><th>Μήνας</th><th>Ημερομηνία ανοίγματος</th><th>Κατάσταση</th><th>Σχόλια</th></tr></thead><tbody>{% for p in prescriptions %}<tr><td>{{ p.month }}</td><td>{{ p.open_date.strftime('%d/%m/%Y') }}</td><td>{{ p.status }}</td><td>{{ p.notes or '—' }}</td></tr>{% else %}<tr><td colspan="4" class="text-secondary">Δεν υπάρχουν καταχωρημένες συνταγές.</td></tr>{% endfor %}</tbody></table></div></div></div>
+<div class="col-lg-5"><div class="card p-3"><h2 class="h4">Μηνύματα φαρμακείου</h2>{% for m in messages %}<article class="message-item"><div class="fw-semibold">{{ m.subject }}</div><div class="small text-secondary">{{ m.created_at.strftime('%d/%m/%Y %H:%M') }}</div><p class="mb-0 mt-2">{{ m.body }}</p></article>{% else %}<p class="text-secondary">Δεν υπάρχουν νέα μηνύματα.</p>{% endfor %}</div></div></div>
+{% endblock %}
